@@ -1,26 +1,322 @@
 @import "tailwindcss";
 
+/* ============================================================
+   FC LIVYI BEREH — design tokens
+   Editorial / sports. Warm paper canvas, green ink, one yellow accent.
+   Never pure #000 / #fff. Radius 0. Zero box-shadows.
+   ============================================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Surfaces */
+  --paper: #f6f4ee; /* warm off-white — the canvas */
+  --paper-2: #efece1; /* barely deeper panel */
+  --paper-3: #e7e3d5; /* deepest paper, dividers block */
+  --green: #205532; /* brand green — structural fills */
+  --green-deep: #15361f; /* darker green — footer / inverted panels */
+  --green-ink: #0e2414; /* near-black green (text on paper) */
+
+  /* Text */
+  --ink: #16261c; /* primary text */
+  --ink-soft: #465049; /* meta / secondary — AA on paper */
+  --ink-faint: #b9b4a4; /* hairlines, disabled */
+  --on-green: #f1efe4; /* text on green */
+  --on-green-soft: #a9bcae; /* meta on green */
+
+  /* Accent — the ONE bright colour. ~2% of pixels. */
+  --yellow: #fdca26;
+  --yellow-deep: #e0a900; /* yellow that survives on paper for small marks */
+
+  /* Shape */
+  --radius: 0px;
+  --radius-soft: 3px;
+  --hairline: 1px solid var(--ink-faint);
+  --hairline-strong: 1px solid var(--ink);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-inout: cubic-bezier(0.83, 0, 0.17, 1);
+  --dur-micro: 150ms;
+  --dur-base: 320ms;
+  --dur-slow: 720ms;
+
+  /* Rhythm */
+  --section-y: clamp(88px, 13vw, 190px);
+  --gutter: clamp(18px, 4.5vw, 68px);
+  --maxw: 1560px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-paper-3: var(--paper-3);
+  --color-green: var(--green);
+  --color-green-deep: var(--green-deep);
+  --color-green-ink: var(--green-ink);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-on-green: var(--on-green);
+  --color-on-green-soft: var(--on-green-soft);
+  --color-yellow: var(--yellow);
+  --color-yellow-deep: var(--yellow-deep);
+
+  --font-display: var(--font-oswald), "Arial Narrow", system-ui, sans-serif;
+  --font-grotesk: var(--font-manrope), system-ui, sans-serif;
+  --font-mono: var(--font-jbmono), ui-monospace, monospace;
+
+  --radius-none: 0px;
+
+  --text-hero: clamp(3.25rem, 12.5vw, 12.5rem);
+  --text-display: clamp(2.4rem, 6.2vw, 6rem);
+  --text-h2: clamp(1.7rem, 3.6vw, 3rem);
+  --text-h3: clamp(1.25rem, 2vw, 1.75rem);
+  --text-label: 0.6875rem;
+
+  --tracking-tightest: -0.045em;
+  --tracking-tight: -0.02em;
+  --tracking-label: 0.14em;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-color: var(--ink-faint);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background: var(--paper);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-grotesk);
+  font-size: 1rem;
+  line-height: 1.6;
+  font-synthesis-weight: none;
+  overflow-x: hidden;
+}
+
+/* Kill Tailwind's default focus-less look; keep keyboard focus loud */
+:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+.on-green :focus-visible {
+  outline-color: var(--yellow);
+}
+
+::selection {
+  background: var(--yellow);
+  color: var(--green-ink);
+}
+
+/* ---------- Type primitives ---------- */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.font-display-xl {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.02;
+}
+
+/* ---------- Layout helpers ---------- */
+.gutter {
+  padding-inline: var(--gutter);
+}
+.shell {
+  max-width: var(--maxw);
+  margin-inline: auto;
+}
+.section {
+  padding-block: var(--section-y);
+}
+.rule {
+  border: 0;
+  border-top: var(--hairline);
+}
+.rule-ink {
+  border: 0;
+  border-top: var(--hairline-strong);
+}
+
+/* ---------- Masked line reveal (headlines) ---------- */
+.mask {
+  display: block;
+  overflow: clip;
+  overflow-clip-margin: 0.12em;
+}
+.mask > span {
+  display: block;
+  transform: translateY(115%);
+}
+.mask.in > span {
+  transform: translateY(0);
+  transition: transform 0.95s var(--ease-out);
+}
+
+/* ---------- Scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(42px);
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.8s var(--ease-out),
+    transform 0.8s var(--ease-out);
+}
+
+/* ---------- Grain ---------- */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Custom cursor ---------- */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--green);
+  pointer-events: none;
+  z-index: 90;
+  mix-blend-mode: multiply;
+  translate: -50% -50%;
+}
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 90;
+  translate: -50% -50%;
+  transition:
+    width 0.3s var(--ease-out),
+    height 0.3s var(--ease-out),
+    background-color 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out);
+}
+.cursor-ring.hot {
+  width: 66px;
+  height: 66px;
+  background: color-mix(in srgb, var(--yellow) 22%, transparent);
+  border-color: var(--yellow-deep);
+}
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}
+
+/* ---------- Marquee ---------- */
+.marquee {
+  display: flex;
+  gap: 3.5rem;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+.marquee.rev {
+  animation-direction: reverse;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- Link underline draw ---------- */
+.ul {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.4s var(--ease-out);
+}
+.ul:hover,
+a:hover > .ul {
+  background-size: 100% 1px;
+}
+
+/* ---------- Lenis ---------- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .mask > span {
+    transform: none !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .marquee {
+    animation: none !important;
+  }
+}
+
+/* Review mode (?flat): freeze entrance animations for QA */
+html.flat .mask > span {
+  transform: none !important;
+  transition: none !important;
+}
+html.flat .reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
 }
