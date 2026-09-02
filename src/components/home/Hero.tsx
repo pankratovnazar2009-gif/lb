@@ -28,7 +28,7 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
       {/* watermark */}
       <span
         aria-hidden
-        className="font-display pointer-events-none absolute right-[-2%] top-[18%] z-0 select-none text-[26vw] leading-none tracking-tighter text-paper-3 md:text-[15vw]"
+        className="font-display pointer-events-none absolute right-[-2%] top-[16%] z-0 hidden select-none text-[15vw] leading-none tracking-tighter text-paper-3 sm:block"
       >
         EST.17
       </span>
@@ -36,7 +36,7 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
       {/* player cutout */}
       <motion.div
         style={{ y: imgY }}
-        className="pointer-events-none absolute bottom-0 right-[-14%] z-[1] h-[54vh] w-[92vw] max-w-[560px] select-none mix-blend-darken sm:right-[-2%] md:right-[1%] md:h-[92vh] md:w-[46vw] lg:right-[4%]"
+        className="pointer-events-none absolute bottom-0 right-[-2%] z-[1] hidden h-[72vh] w-[54vw] max-w-[560px] select-none mix-blend-darken sm:block md:right-[1%] md:h-[92vh] md:w-[46vw] lg:right-[4%]"
       >
         <Image
           src="/players/10-souza.jpg"
