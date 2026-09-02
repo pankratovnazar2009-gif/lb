@@ -23,7 +23,7 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[min(860px,86svh)] flex-col justify-start overflow-hidden gutter pb-12 pt-[clamp(84px,13vh,124px)]"
+      className="relative flex min-h-[min(860px,86svh)] flex-col justify-start overflow-hidden bg-paper gutter pb-12 pt-[clamp(84px,13vh,124px)]"
     >
       {/* watermark */}
       <span

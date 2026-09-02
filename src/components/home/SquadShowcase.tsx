@@ -12,7 +12,7 @@ export function SquadShowcase({ locale, dict }: { locale: Locale; dict: Dictiona
   const featured = players.filter((p) => [10, 9, 7, 8, 44, 20, 6, 11, 21, 5, 17, 74].includes(p.number));
 
   return (
-    <section id="squad" className="section overflow-hidden">
+    <section id="squad" className="section overflow-hidden bg-paper">
       <div className="shell gutter">
         <SectionHeader
           index="03"
