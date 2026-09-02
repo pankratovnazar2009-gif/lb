@@ -3,6 +3,7 @@ import type { Dictionary } from "@/i18n/get-dictionary";
 import type { Locale } from "@/i18n/config";
 import { club, navItems } from "@/content/club";
 import { localeHref } from "@/lib/utils";
+import { SocialIcon } from "./SocialIcon";
 
 export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const address = locale === "uk" ? club.address : club.addressEn;
@@ -20,9 +21,15 @@ export function SiteFooter({ locale, dict }: { locale: Locale; dict: Dictionary 
                   href={s.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="font-display text-3xl leading-tight tracking-tight text-on-green transition-colors hover:text-yellow sm:text-4xl"
+                  className="group flex items-center gap-4 text-on-green transition-colors hover:text-yellow"
                 >
-                  {s.label}
+                  <SocialIcon
+                    id={s.id}
+                    className="h-6 w-6 shrink-0 opacity-70 transition-opacity group-hover:opacity-100"
+                  />
+                  <span className="font-display text-3xl leading-tight tracking-tight sm:text-4xl">
+                    {s.label}
+                  </span>
                 </a>
               ))}
             </div>

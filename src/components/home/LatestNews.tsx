@@ -15,7 +15,7 @@ export function LatestNews({ locale, dict }: { locale: Locale; dict: Dictionary 
   return (
     <section id="news" className="section shell gutter">
       <SectionHeader
-        index="01"
+        index="02"
         label={dict.news.label}
         title={dict.news.title}
         link={{ href: club.mainSiteUrl, label: dict.news.all, external: true }}
@@ -32,7 +32,7 @@ export function LatestNews({ locale, dict }: { locale: Locale; dict: Dictionary 
                   alt=""
                   fill
                   sizes="(max-width: 1024px) 100vw, 58vw"
-                  className="object-cover grayscale transition-[filter,transform] duration-500 group-hover:grayscale-0 group-hover:scale-[1.02]"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                 />
               ) : (
                 <span className="font-display absolute -bottom-4 left-2 text-[9rem] leading-none text-paper-3">

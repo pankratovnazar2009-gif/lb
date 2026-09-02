@@ -111,6 +111,7 @@ const uk = {
     mediaId: "Ідентифікатор медіа",
     rights: "Усі права захищено",
     nav: "Розділи",
+    partners: "Партнери",
     built: "Новий сайт — на Next.js",
   },
   common: {

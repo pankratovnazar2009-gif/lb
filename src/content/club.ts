@@ -33,6 +33,20 @@ export const club = {
     stadiums: "3",
     academyGroups: "9",
   },
+
+  /**
+   * The club does not publish a partner list; these are the marks that appear
+   * on the shirt / in the club's competitive context. Drop real partner files
+   * into /public/partners and add `logo: "/partners/<file>"` to show an image
+   * instead of the wordmark.
+   */
+  partners: [
+    { name: "Nike", note: "Технічний партнер" },
+    { name: "УАФ", note: "Українська асоціація футболу" },
+    { name: "УПЛ", note: "Українська Прем’єр-ліга" },
+    { name: "ПФЛ", note: "Професіональна футбольна ліга" },
+    { name: "FCLB Shop", note: "Офіційний магазин", url: "https://fclb-shop.com" },
+  ] as Array<{ name: string; note: string; url?: string; logo?: string }>,
 } as const;
 
 export type NavKey = "news" | "team" | "matches" | "academy" | "club" | "media";
@@ -41,7 +55,5 @@ export const navItems: Array<{ key: NavKey; href: string; external?: boolean }> 
   { key: "news", href: "/novyny" },
   { key: "team", href: "/komanda" },
   { key: "matches", href: "/#matches" },
-  { key: "academy", href: "/#academy" },
   { key: "club", href: "/#club" },
-  { key: "media", href: "/#media" },
 ];

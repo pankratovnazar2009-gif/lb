@@ -53,6 +53,8 @@ export interface TableRow {
   pos: number;
   team: string;
   teamEn: string;
+  slug: string;
+  site: string;
   played: number;
   win: number;
   draw: number;

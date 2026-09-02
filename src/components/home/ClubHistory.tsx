@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Dictionary } from "@/i18n/get-dictionary";
 import type { Locale } from "@/i18n/config";
 import { club } from "@/content/club";
@@ -37,6 +38,13 @@ export function ClubHistory({ locale, dict }: { locale: Locale; dict: Dictionary
                 </div>
               ))}
             </div>
+            <Image
+              src="/brand/logo.png"
+              alt=""
+              width={160}
+              height={160}
+              className="mt-8 h-24 w-auto opacity-30 [filter:brightness(0)_invert(1)]"
+            />
           </div>
 
           <ol className="lg:col-span-6 lg:col-start-7">

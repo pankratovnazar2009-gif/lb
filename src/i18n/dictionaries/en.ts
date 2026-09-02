@@ -113,6 +113,7 @@ const en: Dictionary = {
     mediaId: "Media identifier",
     rights: "All rights reserved",
     nav: "Sections",
+    partners: "Partners",
     built: "New website — built on Next.js",
   },
   common: {

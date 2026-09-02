@@ -22,7 +22,7 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
     <>
       {/* ticker */}
       <div className="on-green hidden bg-green-deep text-on-green md:block">
-        <div className="shell gutter flex items-center justify-between py-2 label">
+        <div className="shell gutter flex items-center justify-between py-3 label">
           <span className="flex items-center gap-3 text-on-green-soft">
             <span className="text-yellow">{dict.nextMatch.label}</span>
             <span className="text-on-green">

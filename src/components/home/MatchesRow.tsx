@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import type { Dictionary } from "@/i18n/get-dictionary";
 import type { Locale } from "@/i18n/config";
@@ -5,30 +7,34 @@ import { results, fixtures } from "@/content/matches";
 import type { Match } from "@/content/types";
 import { club } from "@/content/club";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { useAutoScroll } from "@/hooks/useAutoScroll";
 import { formatDate, formatTime, cn } from "@/lib/utils";
 
 const US = ["Лівий Берег", "Livyi Bereh"];
 
-export function MatchesRibbon({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export function MatchesRow({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const list: Match[] = [...results.slice().reverse(), ...fixtures];
+  const track = useAutoScroll<HTMLDivElement>();
 
   return (
     <section id="matches" className="on-green bg-green text-on-green">
-      <div className="section shell gutter">
+      <div className="section shell gutter !pb-10">
         <SectionHeader
           invert
-          index="02"
+          index="01"
           label={dict.matches.label}
           title={dict.matches.title}
           link={{ href: club.mainSiteUrl, label: dict.matches.full, external: true }}
         />
+      </div>
 
-        <div className="mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 [scrollbar-width:thin]">
-          {list.map((m) => (
-            <MatchCard key={m.id} m={m} locale={locale} dict={dict} />
-          ))}
-        </div>
-        <p className="label mt-2 text-on-green-soft">← {dict.common.scroll} →</p>
+      <div
+        ref={track}
+        className="flex gap-4 overflow-x-auto pb-12 pl-[var(--gutter)] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {[...list, ...list].map((m, i) => (
+          <MatchCard key={`${m.id}-${i}`} m={m} locale={locale} dict={dict} />
+        ))}
       </div>
     </section>
   );
@@ -42,7 +48,7 @@ function MatchCard({ m, locale, dict }: { m: Match; locale: Locale; dict: Dictio
   const isResult = m.status === "result";
 
   return (
-    <article className="flex w-[280px] shrink-0 snap-start flex-col justify-between border border-white/20 p-5 sm:w-[320px]">
+    <article className="flex w-[266px] shrink-0 flex-col justify-between border border-white/20 p-5 sm:w-[300px]">
       <div className="flex items-center justify-between label text-on-green-soft">
         <span>{round}</span>
         <span className={isResult ? "text-on-green-soft" : "text-yellow"}>
@@ -83,7 +89,12 @@ function Row({
   return (
     <div className="flex items-center gap-3">
       <Image src="/brand/logo.png" alt="" width={22} height={22} className="h-5 w-5 shrink-0 opacity-90" />
-      <span className={cn("font-display flex-1 truncate text-lg leading-none", isUs ? "text-yellow" : "text-on-green")}>
+      <span
+        className={cn(
+          "font-display flex-1 truncate text-lg leading-none",
+          isUs ? "text-yellow" : "text-on-green",
+        )}
+      >
         {name}
       </span>
       {showScore && (
