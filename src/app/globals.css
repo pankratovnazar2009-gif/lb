@@ -166,7 +166,7 @@ h3 {
 .mask {
   display: block;
   overflow: clip;
-  overflow-clip-margin: 0.12em;
+  overflow-clip-margin: 0.18em;
 }
 .mask > span {
   display: block;
