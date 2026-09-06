@@ -43,18 +43,18 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[60svh] flex-col overflow-hidden bg-paper pt-[clamp(72px,10vh,108px)]"
+      className="relative flex min-h-[62svh] flex-col overflow-hidden bg-paper pt-[clamp(84px,13vh,132px)] md:min-h-[90svh]"
     >
       {/* players flanking the wordmark */}
       <Cutout
         src="/players/44-banada.jpg"
         y={yL}
-        className="hidden h-[70vh] w-[30vw] max-w-[300px] left-[-9%] top-[7%] opacity-90 md:block lg:left-[-5%]"
+        className="hidden h-[80vh] w-[36vw] max-w-[380px] left-[-7%] top-[6%] opacity-95 md:block md:h-[88vh] lg:left-[-3%]"
       />
       <Cutout
         src="/players/10-souza.jpg"
         y={yR}
-        className="hidden h-[58vh] w-[52vw] max-w-[350px] right-[-26%] top-[15%] sm:block sm:right-[-18%] md:right-[-12%] md:h-[74vh] md:w-[33vw] md:top-[5%] lg:right-[-8%]"
+        className="hidden h-[64vh] w-[58vw] max-w-[420px] right-[-14%] top-[16%] sm:block sm:right-[-6%] md:right-[0%] md:h-[92vh] md:w-[42vw] md:top-[3%] lg:right-[2%]"
       />
 
       {/* wordmark + intro — always on top */}
@@ -62,10 +62,10 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         <MaskText
           as="h1"
           lines={["Лівий Берег"]}
-          className="font-display-xl -ml-[0.04em] block whitespace-nowrap text-[15.5vw] text-ink lg:text-[13vw]"
+          className="font-display-xl -ml-[0.04em] block whitespace-nowrap text-[16vw] text-ink lg:text-[13.5vw]"
         />
-        <div className="mt-6 flex flex-col gap-6 md:mt-8 md:max-w-md">
-          <p className="text-sm leading-relaxed text-ink-soft md:text-base">
+        <div className="mt-7 flex flex-col gap-6 md:mt-9 md:max-w-lg">
+          <p className="text-base leading-relaxed text-ink-soft md:text-lg">
             {dict.hero.tagline}
           </p>
           <div className="flex flex-wrap items-center gap-x-8 gap-y-3 text-ink">
@@ -83,7 +83,7 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         </div>
       </div>
 
-      <span className="label relative z-[2] mt-10 shell gutter block w-full pb-8 text-ink-soft">
+      <span className="label relative z-[2] mt-auto shell gutter block w-full pb-10 text-ink-soft">
         {dict.hero.nickname}
       </span>
     </section>
