@@ -18,7 +18,7 @@ export function ClubHistory({ locale, dict }: { locale: Locale; dict: Dictionary
   return (
     <section id="club" className="on-green relative overflow-hidden bg-green-deep text-on-green">
       <div className="section shell gutter relative">
-        <SectionHeader invert index="05" label={dict.club.label} title={dict.club.title} link={{ href: club.mainSiteUrl, label: dict.club.history, external: true }} />
+        <SectionHeader invert index="04" label={dict.club.label} title={dict.club.title} link={{ href: club.mainSiteUrl, label: dict.club.history, external: true }} />
 
         <div className="mt-14 grid gap-x-10 gap-y-12 lg:grid-cols-12">
           <div className="lg:col-span-5">

@@ -9,6 +9,7 @@ import type { Locale } from "@/i18n/config";
 import { MaskText } from "@/components/ui/MaskText";
 import { ArrowLink } from "@/components/ui/ArrowLink";
 import { localeHref } from "@/lib/utils";
+import { MatchesTicker } from "./MatchesTicker";
 
 /** Studio cutout — white bg knocked out on the paper via mix-blend. */
 function Cutout({
@@ -83,9 +84,7 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         </div>
       </div>
 
-      <span className="label relative z-[2] mt-auto shell gutter block w-full pb-10 text-ink-soft">
-        {dict.hero.nickname}
-      </span>
+      <MatchesTicker locale={locale} dict={dict} />
     </section>
   );
 }

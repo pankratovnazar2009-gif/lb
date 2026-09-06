@@ -15,7 +15,7 @@ export function LatestNews({ locale, dict }: { locale: Locale; dict: Dictionary 
   return (
     <section id="news" className="section shell gutter">
       <SectionHeader
-        index="02"
+        index="01"
         label={dict.news.label}
         title={dict.news.title}
         link={{ href: club.mainSiteUrl, label: dict.news.all, external: true }}

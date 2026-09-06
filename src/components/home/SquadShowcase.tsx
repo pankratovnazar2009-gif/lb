@@ -21,7 +21,7 @@ export function SquadShowcase({ locale, dict }: { locale: Locale; dict: Dictiona
   return (
     <section id="squad" className="section overflow-hidden bg-paper">
       <div className="shell gutter">
-        <SectionHeader index="03" label={dict.squad.label} title={dict.squad.title} />
+        <SectionHeader index="02" label={dict.squad.label} title={dict.squad.title} />
       </div>
 
       <div className="mt-12 flex gap-0 overflow-x-auto pb-3 pl-[var(--gutter)] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">

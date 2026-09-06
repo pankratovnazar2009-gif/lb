@@ -11,7 +11,7 @@ export function LeagueTableBlock({ locale, dict }: { locale: Locale; dict: Dicti
 
   return (
     <section id="table" className="section shell gutter">
-      <SectionHeader index="04" label={dict.table.label} title={dict.table.title} />
+      <SectionHeader index="03" label={dict.table.label} title={dict.table.title} />
 
       <Reveal className="mx-auto mt-12 max-w-3xl overflow-x-auto">
         <table className="w-full min-w-[540px] border-collapse">
