@@ -17,13 +17,6 @@ export function ClubHistory({ locale, dict }: { locale: Locale; dict: Dictionary
 
   return (
     <section id="club" className="on-green relative overflow-hidden bg-green-deep text-on-green">
-      <span
-        aria-hidden
-        className="font-display pointer-events-none absolute -left-[2vw] bottom-[-6vw] select-none text-[30vw] leading-none text-white/[0.05]"
-      >
-        2017
-      </span>
-
       <div className="section shell gutter relative">
         <SectionHeader invert index="05" label={dict.club.label} title={dict.club.title} link={{ href: club.mainSiteUrl, label: dict.club.history, external: true }} />
 
@@ -41,9 +34,10 @@ export function ClubHistory({ locale, dict }: { locale: Locale; dict: Dictionary
             <Image
               src="/brand/logo.png"
               alt=""
-              width={160}
-              height={160}
-              className="mt-8 h-24 w-auto opacity-30 [filter:brightness(0)_invert(1)]"
+              width={520}
+              height={520}
+              aria-hidden
+              className="pointer-events-none mt-12 h-[40vh] max-h-[440px] min-h-[240px] w-auto opacity-30 [filter:brightness(0)_invert(1)] lg:-ml-[6%] lg:mt-16 lg:h-[50vh]"
             />
           </div>
 
