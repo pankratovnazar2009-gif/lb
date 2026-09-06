@@ -3,12 +3,33 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import type { Dictionary } from "@/i18n/get-dictionary";
 import type { Locale } from "@/i18n/config";
 import { MaskText } from "@/components/ui/MaskText";
 import { ArrowLink } from "@/components/ui/ArrowLink";
 import { localeHref } from "@/lib/utils";
+
+/** Studio cutout — white bg knocked out on the paper via mix-blend. */
+function Cutout({
+  src,
+  className,
+  y,
+}: {
+  src: string;
+  className: string;
+  y: MotionValue<number>;
+}) {
+  return (
+    <motion.div
+      style={{ y }}
+      aria-hidden
+      className={`pointer-events-none absolute z-[1] select-none mix-blend-darken ${className}`}
+    >
+      <Image src={src} alt="" fill sizes="42vw" className="object-contain object-top" />
+    </motion.div>
+  );
+}
 
 export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const ref = useRef<HTMLElement>(null);
@@ -16,30 +37,27 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
     target: ref,
     offset: ["start start", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const yL = useTransform(scrollYProgress, [0, 1], [0, 70]);
+  const yR = useTransform(scrollYProgress, [0, 1], [0, 110]);
 
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[90svh] flex-col overflow-hidden bg-paper pt-[clamp(80px,12vh,124px)]"
+      className="relative flex min-h-[90svh] flex-col overflow-hidden bg-paper pt-[clamp(78px,11vh,120px)]"
     >
-      {/* team cutout, right side */}
-      <motion.div
-        style={{ y }}
-        aria-hidden
-        className="pointer-events-none absolute bottom-0 right-[-6%] z-[1] hidden h-[62vh] w-[62vw] max-w-[920px] select-none sm:block md:right-[-2%] md:h-[70vh] lg:right-[2%]"
-      >
-        <Image
-          src="/team/squad.png"
-          alt=""
-          fill
-          priority
-          sizes="62vw"
-          className="object-contain object-bottom"
-        />
-      </motion.div>
+      {/* players flanking the wordmark */}
+      <Cutout
+        src="/players/44-banada.jpg"
+        y={yL}
+        className="hidden h-[82vh] w-[36vw] max-w-[360px] left-[-8%] top-[3%] opacity-90 md:block lg:left-[-4%]"
+      />
+      <Cutout
+        src="/players/10-souza.jpg"
+        y={yR}
+        className="hidden h-[68vh] w-[58vw] max-w-[440px] right-[-18%] top-[12%] sm:block sm:right-[-8%] md:right-[0%] md:h-[86vh] md:w-[40vw] md:top-[2%] lg:right-[4%]"
+      />
 
-      {/* wordmark + intro */}
+      {/* wordmark + intro — always on top */}
       <div className="shell gutter relative z-[2] w-full">
         <MaskText
           as="h1"
