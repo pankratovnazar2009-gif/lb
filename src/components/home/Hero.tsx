@@ -43,18 +43,18 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[90svh] flex-col overflow-hidden bg-paper pt-[clamp(78px,11vh,120px)]"
+      className="relative flex min-h-[60svh] flex-col overflow-hidden bg-paper pt-[clamp(72px,10vh,108px)]"
     >
       {/* players flanking the wordmark */}
       <Cutout
         src="/players/44-banada.jpg"
         y={yL}
-        className="hidden h-[82vh] w-[36vw] max-w-[360px] left-[-8%] top-[3%] opacity-90 md:block lg:left-[-4%]"
+        className="hidden h-[70vh] w-[30vw] max-w-[300px] left-[-9%] top-[7%] opacity-90 md:block lg:left-[-5%]"
       />
       <Cutout
         src="/players/10-souza.jpg"
         y={yR}
-        className="hidden h-[68vh] w-[58vw] max-w-[440px] right-[-18%] top-[12%] sm:block sm:right-[-8%] md:right-[0%] md:h-[86vh] md:w-[40vw] md:top-[2%] lg:right-[4%]"
+        className="hidden h-[58vh] w-[52vw] max-w-[350px] right-[-26%] top-[15%] sm:block sm:right-[-18%] md:right-[-12%] md:h-[74vh] md:w-[33vw] md:top-[5%] lg:right-[-8%]"
       />
 
       {/* wordmark + intro — always on top */}
@@ -83,7 +83,7 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         </div>
       </div>
 
-      <span className="label relative z-[2] mt-auto shell gutter block w-full pb-8 text-ink-soft">
+      <span className="label relative z-[2] mt-10 shell gutter block w-full pb-8 text-ink-soft">
         {dict.hero.nickname}
       </span>
     </section>
