@@ -3,33 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
-import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import type { Dictionary } from "@/i18n/get-dictionary";
 import type { Locale } from "@/i18n/config";
 import { MaskText } from "@/components/ui/MaskText";
 import { ArrowLink } from "@/components/ui/ArrowLink";
 import { localeHref } from "@/lib/utils";
-
-/** Studio cutout, white bg knocked out on the paper via mix-blend. */
-function Cutout({
-  src,
-  className,
-  y,
-}: {
-  src: string;
-  className: string;
-  y: MotionValue<number>;
-}) {
-  return (
-    <motion.div
-      style={{ y }}
-      aria-hidden
-      className={`pointer-events-none absolute bottom-0 z-[1] select-none mix-blend-darken ${className}`}
-    >
-      <Image src={src} alt="" fill sizes="45vw" className="object-contain object-bottom" />
-    </motion.div>
-  );
-}
 
 export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const ref = useRef<HTMLElement>(null);
@@ -37,31 +16,28 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
     target: ref,
     offset: ["start start", "end start"],
   });
-  const yA = useTransform(scrollYProgress, [0, 1], [0, 90]);
-  const yB = useTransform(scrollYProgress, [0, 1], [0, 150]);
-  const yC = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   return (
     <section
       ref={ref}
       className="relative flex min-h-[90svh] flex-col overflow-hidden bg-paper pt-[clamp(80px,12vh,124px)]"
     >
-      {/* scattered players */}
-      <Cutout
-        src="/players/44-banada.jpg"
-        y={yC}
-        className="hidden h-[44vh] w-[30vw] max-w-[300px] left-[-9%] opacity-90 md:block lg:left-[-5%]"
-      />
-      <Cutout
-        src="/players/9-florentcio.jpg"
-        y={yB}
-        className="hidden h-[36vh] w-[20vw] max-w-[220px] left-[42%] opacity-80 lg:block"
-      />
-      <Cutout
-        src="/players/10-souza.jpg"
-        y={yA}
-        className="h-[52vh] w-[86vw] max-w-[440px] right-[-16%] sm:right-[-4%] md:right-[2%] md:h-[80vh] md:w-[40vw]"
-      />
+      {/* team cutout, right side */}
+      <motion.div
+        style={{ y }}
+        aria-hidden
+        className="pointer-events-none absolute bottom-0 right-[-6%] z-[1] hidden h-[62vh] w-[62vw] max-w-[920px] select-none sm:block md:right-[-2%] md:h-[70vh] lg:right-[2%]"
+      >
+        <Image
+          src="/team/squad.png"
+          alt=""
+          fill
+          priority
+          sizes="62vw"
+          className="object-contain object-bottom"
+        />
+      </motion.div>
 
       {/* wordmark + intro */}
       <div className="shell gutter relative z-[2] w-full">
