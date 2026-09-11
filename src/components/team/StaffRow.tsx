@@ -15,7 +15,7 @@ export function StaffRow({ locale }: { locale: Locale; dict: Dictionary }) {
         <div className="mt-8 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-5">
           <Reveal className="sm:col-span-2 lg:col-span-2">
             <div className="relative aspect-[4/3] w-full overflow-hidden bg-paper-2">
-              <Image src={head.photo} alt={head.name} fill sizes="40vw" className="object-cover object-top grayscale" />
+              <Image src={head.photo} alt={head.name} fill sizes="40vw" className="tone-warm object-cover object-top" />
             </div>
             <p className="label mt-3 text-green">{locale === "uk" ? head.role : head.roleEn}</p>
             <p className="font-display mt-1 text-3xl text-ink">{locale === "uk" ? head.name : head.nameEn}</p>
@@ -24,7 +24,7 @@ export function StaffRow({ locale }: { locale: Locale; dict: Dictionary }) {
           {rest.map((m, i) => (
             <Reveal key={m.id} delay={i * 40}>
               <div className="relative aspect-[3/4] w-full overflow-hidden bg-paper-2">
-                <Image src={m.photo} alt={m.name} fill sizes="20vw" className="object-cover object-top grayscale transition duration-500 hover:grayscale-0" />
+                <Image src={m.photo} alt={m.name} fill sizes="20vw" className="tone-warm object-cover object-top transition duration-500" />
               </div>
               <p className="mt-2 border-t border-ink pt-2 text-sm font-medium text-ink">
                 {locale === "uk" ? m.name : m.nameEn}

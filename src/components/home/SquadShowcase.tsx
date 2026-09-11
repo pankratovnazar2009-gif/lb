@@ -58,7 +58,7 @@ function PlayerColumn({ p, locale, dict }: { p: Player; locale: Locale; dict: Di
           alt={`${first} ${last}`}
           fill
           sizes="(max-width: 640px) 62vw, 280px"
-          className="z-[1] object-cover object-top grayscale transition-[filter,transform] duration-500 group-hover:grayscale-0 group-hover:scale-[1.03]"
+          className="tone-warm z-[1] object-cover object-top transition-[filter,transform] duration-500 group-hover:scale-[1.03]"
         />
         <span
           aria-hidden

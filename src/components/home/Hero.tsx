@@ -1,14 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useRef } from "react";
 import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import type { Dictionary } from "@/i18n/get-dictionary";
 import type { Locale } from "@/i18n/config";
 import { MaskText } from "@/components/ui/MaskText";
-import { ArrowLink } from "@/components/ui/ArrowLink";
-import { localeHref } from "@/lib/utils";
 import { MatchesTicker } from "./MatchesTicker";
 
 /** Studio cutout — white bg knocked out on the paper via mix-blend. */
@@ -65,23 +62,6 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           lines={["Лівий Берег"]}
           className="font-display-xl -ml-[0.04em] block whitespace-nowrap text-[16vw] text-ink lg:text-[13.5vw]"
         />
-        <div className="mt-7 flex flex-col gap-6 md:mt-9 md:max-w-lg">
-          <p className="text-base leading-relaxed text-ink-soft md:text-lg">
-            {dict.hero.tagline}
-          </p>
-          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 text-ink">
-            <ArrowLink href={localeHref("/komanda", locale)}>
-              {dict.hero.squad}
-            </ArrowLink>
-            <Link
-              href="https://www.youtube.com/@fclbkyiv"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <span className="ul label">{dict.hero.watch}</span>
-            </Link>
-          </div>
-        </div>
       </div>
 
       <MatchesTicker locale={locale} dict={dict} />

@@ -201,6 +201,17 @@ h3 {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* ---------- Warm monochrome (player/coach portraits) ----------
+   A plain grayscale() on these studio photos reads as funereal on our warm
+   paper. Bias it toward the paper's own beige instead of neutral gray. */
+.tone-warm {
+  filter: grayscale(1) sepia(0.35) saturate(1.15) brightness(1.04);
+}
+.group:hover .tone-warm,
+.tone-warm:hover {
+  filter: none;
+}
+
 /* ---------- Custom cursor ---------- */
 .cursor-dot {
   position: fixed;
