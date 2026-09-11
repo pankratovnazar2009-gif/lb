@@ -3,7 +3,9 @@ import type { Dictionary } from "@/i18n/get-dictionary";
 import type { Locale } from "@/i18n/config";
 import { players, positionOrder } from "@/content/players";
 import type { Player } from "@/content/types";
+import { statFor } from "@/content/playerStats";
 import { Reveal } from "@/components/ui/Reveal";
+import { pluralUk } from "@/lib/utils";
 
 export function SquadGrid({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   return (
@@ -36,6 +38,19 @@ export function SquadGrid({ locale, dict }: { locale: Locale; dict: Dictionary }
 function PlayerCard({ p, locale }: { p: Player; locale: Locale }) {
   const last = locale === "uk" ? p.last : p.lastEn;
   const first = locale === "uk" ? p.first : p.firstEn;
+  const stat = statFor(p.id);
+  const appsWord =
+    locale === "uk"
+      ? pluralUk(stat.apps, "матч", "матчі", "матчів")
+      : stat.apps === 1
+        ? "app"
+        : "apps";
+  const goalsWord =
+    locale === "uk"
+      ? pluralUk(stat.goals, "гол", "голи", "голів")
+      : stat.goals === 1
+        ? "goal"
+        : "goals";
   return (
     <div data-cursor className="group">
       <div className="relative aspect-[3/4] overflow-hidden bg-paper-2">
@@ -58,6 +73,10 @@ function PlayerCard({ p, locale }: { p: Player; locale: Locale }) {
         <span className="mt-1 flex items-center justify-between text-xs text-ink-soft">
           <span>{first}</span>
           <span className="label">{p.country}</span>
+        </span>
+        <span className="label mt-2 flex items-center gap-3 text-ink-soft">
+          <span className="tabular-nums">{stat.apps} {appsWord}</span>
+          <span className="tabular-nums">{stat.goals} {goalsWord}</span>
         </span>
       </div>
     </div>

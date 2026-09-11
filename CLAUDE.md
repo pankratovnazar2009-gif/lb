@@ -34,17 +34,25 @@ npm start          # прод-сервер
 
 ```
 src/
-  app/[locale]/           layout (шрифти, хедер/футер, прелоадер) + page (головна) + komanda, novyny
+  app/[locale]/           layout (шрифти, хедер/футер, прелоадер) + page (головна),
+                          komanda (склад + форма + статистика + голосування), matchi, novyny
+  app/api/vote/           route.ts — голосування «гравець туру» (KV, див. нижче)
   components/
-    layout/               SiteHeader, SiteFooter, Crest, MobileMenu, SmoothScroll, Cursor, Preloader, LocaleSwitch, ReviewMode
-    home/                 Hero, NextMatchCard, LatestNews, MatchesRibbon, SquadShowcase, LeagueTableBlock, ClubHistory, MediaStrip, AcademyCta, SocialMarquee
-    team/                 SquadGrid, StaffRow
+    layout/               SiteHeader, SiteFooter, SocialIcon, Crest, MobileMenu, SmoothScroll, Cursor, Preloader, LocaleSwitch, ReviewMode
+    home/                 Hero (гравці-вирізки по боках + MatchesTicker знизу), LatestNews, SquadShowcase,
+                          LeagueTableBlock (реюзається і на /matchi), ClubHistory (+ PartnersList під гербом), PartnersList
+    matches/              MatchesFull — сітка результатів+розкладу на /matchi
+    team/                 SquadGrid, TeamForm, PlayerOfRound, StaffRow
     ui/                   SectionHeader, MaskText, Reveal, ArrowLink, PageIntro
-  content/                players, staff, news, matches, table, history, club, types  ← весь контент тут
+  content/                players, staff, playerStats, news, matches, table, history, club, vote, types  ← весь контент тут
   i18n/                   config, get-dictionary, dictionaries/
-  hooks/                  useInViewOnce, useScrolled
-public/players|coaches|media|brand   стиснуті фото (студійні портрети на білому — виносяться на фон через mix-blend-darken)
+  hooks/                  useInViewOnce, useScrolled, useAutoScroll
+  lib/                    utils (cn, formatDate/Time, localeHref, pluralUk), crest (crestFor: назва команди → /upl/<slug>.png)
+public/players|coaches|upl|brand   стиснуті фото/герби (студійні портрети на білому — виносяться на фон через mix-blend-darken)
 ```
+
+Хедер: «Матчі» веде на окрему сторінку `/matchi` (усі результати+розклад+таблиця), не на якір.
+Партнери — не окрема секція, а блок під гербом клубу всередині «Клуб» (`ClubHistory` → `PartnersList`).
 
 ## Дизайн-константи
 
@@ -65,4 +73,13 @@ public/players|coaches|media|brand   стиснуті фото (студійні
 
 ## Дані
 
-Контент у `src/content/*.ts` — знімок із fclb.com.ua станом на вересень 2026 (склад, останні новини, таблиця УПЛ 2026/27, найближчі тури). Оновлюється редагуванням цих файлів; CMS поки немає.
+Контент у `src/content/*.ts` — знімок із fclb.com.ua станом на вересень 2026 (склад, останні новини, таблиця УПЛ 2026/27, найближчі тури, статистика гравців у `playerStats.ts` — підібрані реалістичні числа, узгоджені з рахунками матчів). Оновлюється редагуванням цих файлів; CMS поки немає.
+
+## Голосування «Гравець туру»
+
+`/uk/komanda` → `PlayerOfRound` (клієнтський компонент) звертається до `/api/vote` (Route Handler, `src/app/api/vote/route.ts`). Це єдина частина сайту з реальним бекендом:
+
+- Лічильники голосів зберігаються в **Vercel KV** (`@vercel/kv`, хеш `votes:round:<N>`).
+- Один голос на браузер — httpOnly-кука `lb-voted-round-<N>`, не бездоганний захист від фроду, але достатній для фанатського опитування.
+- Кандидати й номер туру — `src/content/vote.ts` (`VOTE_CANDIDATES`, `CURRENT_ROUND`), оновлюється вручну щотижня.
+- **Без підключеної KV** API не падає — тихо повертає `configured: false`, і віджет показує «Голосування тимчасово недоступне» замість кнопок. Щоб увімкнути насправді: у Vercel → Project → Storage → підключити **KV** (або маркетплейс-інтеграцію «Upstash for Redis» — той самий формат env-змінних). Локально — `vercel env pull .env.local` або вручну за прикладом `.env.local.example`.
