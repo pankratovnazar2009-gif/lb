@@ -6,12 +6,20 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
 
-export function LeagueTableBlock({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export function LeagueTableBlock({
+  locale,
+  dict,
+  index = "03",
+}: {
+  locale: Locale;
+  dict: Dictionary;
+  index?: string;
+}) {
   const c = dict.table.cols;
 
   return (
     <section id="table" className="section shell gutter">
-      <SectionHeader index="03" label={dict.table.label} title={dict.table.title} />
+      <SectionHeader index={index} label={dict.table.label} title={dict.table.title} />
 
       <Reveal className="mx-auto mt-12 max-w-3xl overflow-x-auto">
         <table className="w-full min-w-[540px] border-collapse">

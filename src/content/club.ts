@@ -41,10 +41,10 @@ export const club = {
    * instead of the wordmark.
    */
   partners: [
-    { name: "Nike", note: "Технічний партнер" },
-    { name: "УАФ", note: "Українська асоціація футболу" },
-    { name: "УПЛ", note: "Українська Прем’єр-ліга" },
-    { name: "ПФЛ", note: "Професіональна футбольна ліга" },
+    { name: "Nike", note: "Технічний партнер", url: "https://www.nike.com/retail/directory/ukraine" },
+    { name: "УАФ", note: "Українська асоціація футболу", url: "https://uaf.ua" },
+    { name: "УПЛ", note: "Українська Прем’єр-ліга", url: "https://upl.ua" },
+    { name: "ПФЛ", note: "Професіональна футбольна ліга", url: "https://pfl.ua" },
     { name: "FCLB Shop", note: "Офіційний магазин", url: "https://fclb-shop.com" },
   ] as Array<{ name: string; note: string; url?: string; logo?: string }>,
 } as const;
@@ -54,6 +54,6 @@ export type NavKey = "news" | "team" | "matches" | "academy" | "club" | "media";
 export const navItems: Array<{ key: NavKey; href: string; external?: boolean }> = [
   { key: "news", href: "/novyny" },
   { key: "team", href: "/komanda" },
-  { key: "matches", href: "/#matches" },
+  { key: "matches", href: "/matchi" },
   { key: "club", href: "/#club" },
 ];

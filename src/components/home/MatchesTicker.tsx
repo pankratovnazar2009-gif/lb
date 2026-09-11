@@ -5,13 +5,12 @@ import type { Dictionary } from "@/i18n/get-dictionary";
 import type { Locale } from "@/i18n/config";
 import { results, fixtures } from "@/content/matches";
 import type { Match } from "@/content/types";
-import { leagueTable } from "@/content/table";
+import { crestFor } from "@/lib/crest";
 import { useAutoScroll } from "@/hooks/useAutoScroll";
-import { formatDate, formatTime, cn } from "@/lib/utils";
+import { formatDate, formatTime, cn, localeHref } from "@/lib/utils";
+import { ArrowLink } from "@/components/ui/ArrowLink";
 
 const US = ["Лівий Берег", "Livyi Bereh"];
-const crest = (team: string) =>
-  `/upl/${leagueTable.find((r) => r.team === team || r.teamEn === team)?.slug ?? "livyi-bereh"}.png`;
 
 /** Auto-scrolling results + fixtures strip that lives at the foot of the hero.
  *  Runs on its own, pauses on hover/focus, stays grab-scrollable. */
@@ -23,7 +22,9 @@ export function MatchesTicker({ locale, dict }: { locale: Locale; dict: Dictiona
     <div id="matches" className="relative z-[2] mt-auto w-full border-t border-ink bg-paper">
       <div className="gutter flex items-center justify-between pt-4">
         <span className="label text-ink-soft">{dict.matches.label}</span>
-        <span className="label text-ink-soft">{dict.matches.results} · {dict.matches.fixtures}</span>
+        <span className="text-ink">
+          <ArrowLink href={localeHref("/matchi", locale)}>{dict.matches.full}</ArrowLink>
+        </span>
       </div>
       <div
         ref={track}
@@ -75,7 +76,7 @@ function Row({
   return (
     <div className="flex items-center gap-2.5">
       <Image
-        src={crest(name)}
+        src={crestFor(name)}
         alt=""
         width={20}
         height={20}

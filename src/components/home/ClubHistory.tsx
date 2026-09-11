@@ -6,6 +6,7 @@ import { timeline } from "@/content/history";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Reveal } from "@/components/ui/Reveal";
 import { MaskText } from "@/components/ui/MaskText";
+import { PartnersList } from "./PartnersList";
 
 export function ClubHistory({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const t = (uk: string, en: string) => (locale === "uk" ? uk : en);
@@ -39,6 +40,7 @@ export function ClubHistory({ locale, dict }: { locale: Locale; dict: Dictionary
               aria-hidden
               className="pointer-events-none mt-12 h-[40vh] max-h-[440px] min-h-[240px] w-auto opacity-30 [filter:brightness(0)_invert(1)] lg:-ml-[6%] lg:mt-16 lg:h-[50vh]"
             />
+            <PartnersList dict={dict} />
           </div>
 
           <ol className="lg:col-span-6 lg:col-start-7">
