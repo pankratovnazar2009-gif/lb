@@ -4,8 +4,8 @@ import Image from "next/image";
 import { useState } from "react";
 import type { Dictionary } from "@/i18n/get-dictionary";
 import type { Locale } from "@/i18n/config";
-import { results, fixtures } from "@/content/matches";
 import type { Match } from "@/content/types";
+import { liveMatches } from "@/lib/matchStatus";
 import { lineupFor } from "@/content/lineups";
 import { players } from "@/content/players";
 import { crestFor } from "@/lib/crest";
@@ -20,6 +20,7 @@ type Side = "all" | "home" | "away";
  *  home/away filter and an expandable "склад на матч" for results. */
 export function MatchesFull({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const [side, setSide] = useState<Side>("all");
+  const { results, fixtures } = liveMatches();
 
   const bySide = (m: Match) => {
     if (side === "all") return true;
@@ -27,7 +28,7 @@ export function MatchesFull({ locale, dict }: { locale: Locale; dict: Dictionary
   };
 
   const filteredFixtures = fixtures.filter(bySide);
-  const filteredResults = [...results].reverse().filter(bySide);
+  const filteredResults = results.filter(bySide);
 
   return (
     <div className="shell gutter">

@@ -43,7 +43,14 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
       ref={ref}
       className="relative flex min-h-[62svh] flex-col overflow-hidden bg-paper pt-[clamp(84px,13vh,132px)] md:min-h-[90svh]"
     >
-      {/* players flanking the wordmark */}
+      {/* one player, right of the wordmark, filling the space above the ticker — phones only */}
+      <Cutout
+        src="/players/44-banada.jpg"
+        y={yL}
+        className="block h-[46vh] w-[64vw] max-w-[300px] right-[-9%] top-[15%] opacity-95 sm:hidden"
+      />
+
+      {/* players flanking the wordmark — tablet and up */}
       <Cutout
         src="/players/44-banada.jpg"
         y={yL}

@@ -32,20 +32,21 @@ export const results: Match[] = [
     kickoff: "2026-08-29T18:00:00+03:00", ...HOME_VENUE,
     status: "result", score: [1, 1],
   },
+  {
+    id: "r5", ...UPL, round: "5 тур", roundEn: "Round 5",
+    home: "Чорноморець", away: "Лівий Берег", homeEn: "Chornomorets", awayEn: "Livyi Bereh",
+    kickoff: "2026-09-04T13:00:00+03:00", venue: "Одеса · Стадіон «Чорноморець»", venueEn: "Odesa · Chornomorets Stadium",
+    status: "result", score: [1, 2],
+  },
+  {
+    id: "r6", ...UPL, round: "6 тур", roundEn: "Round 6",
+    home: "Лівий Берег", away: "Полісся", homeEn: "Livyi Bereh", awayEn: "Polissia",
+    kickoff: "2026-09-13T15:30:00+03:00", ...HOME_VENUE,
+    status: "result", score: [2, 1],
+  },
 ];
 
 export const fixtures: Match[] = [
-  {
-    id: "f5", ...UPL, round: "5 тур", roundEn: "Round 5",
-    home: "Чорноморець", away: "Лівий Берег", homeEn: "Chornomorets", awayEn: "Livyi Bereh",
-    kickoff: "2026-09-04T13:00:00+03:00", venue: "Одеса · Стадіон «Чорноморець»", venueEn: "Odesa · Chornomorets Stadium",
-    status: "fixture",
-  },
-  {
-    id: "f6", ...UPL, round: "6 тур", roundEn: "Round 6",
-    home: "Лівий Берег", away: "Полісся", homeEn: "Livyi Bereh", awayEn: "Polissia",
-    kickoff: "2026-09-13T15:30:00+03:00", ...HOME_VENUE, status: "fixture",
-  },
   {
     id: "f7", ...UPL, round: "7 тур", roundEn: "Round 7",
     home: "Епіцентр", away: "Лівий Берег", homeEn: "Epitsentr", awayEn: "Livyi Bereh",
@@ -68,5 +69,3 @@ export const fixtures: Match[] = [
     kickoff: "2026-10-18T15:00:00+03:00", ...HOME_VENUE, status: "fixture",
   },
 ];
-
-export const nextMatch = fixtures[0];

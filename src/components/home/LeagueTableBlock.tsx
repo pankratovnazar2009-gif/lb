@@ -67,7 +67,7 @@ export function LeagueTableBlock({
                       <span
                         aria-hidden
                         className="h-3 w-[3px] shrink-0"
-                        style={{ backgroundColor: us ? "var(--green)" : zone ?? "transparent" }}
+                        style={{ backgroundColor: zone ?? "transparent" }}
                       />
                       {row.pos}
                     </span>

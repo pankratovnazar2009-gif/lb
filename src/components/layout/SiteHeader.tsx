@@ -5,7 +5,7 @@ import { useState } from "react";
 import type { Dictionary } from "@/i18n/get-dictionary";
 import type { Locale } from "@/i18n/config";
 import { navItems, club } from "@/content/club";
-import { nextMatch } from "@/content/matches";
+import { liveNextMatch } from "@/lib/matchStatus";
 import { cn, localeHref, formatDate } from "@/lib/utils";
 import { useScrolled } from "@/hooks/useScrolled";
 import { Crest } from "./Crest";
@@ -15,8 +15,9 @@ import { MobileMenu } from "./MobileMenu";
 export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const scrolled = useScrolled(48);
   const [menuOpen, setMenuOpen] = useState(false);
-  const home = locale === "uk" ? nextMatch.home : nextMatch.homeEn;
-  const away = locale === "uk" ? nextMatch.away : nextMatch.awayEn;
+  const nextMatch = liveNextMatch();
+  const home = nextMatch && (locale === "uk" ? nextMatch.home : nextMatch.homeEn);
+  const away = nextMatch && (locale === "uk" ? nextMatch.away : nextMatch.awayEn);
 
   return (
     <>
@@ -25,10 +26,14 @@ export function SiteHeader({ locale, dict }: { locale: Locale; dict: Dictionary 
         <div className="shell gutter flex items-center justify-between py-3 label">
           <span className="flex items-center gap-3 text-on-green-soft">
             <span className="text-yellow">{dict.nextMatch.label}</span>
-            <span className="text-on-green">
-              {home} — {away}
-            </span>
-            <span>{formatDate(nextMatch.kickoff, locale)}</span>
+            {nextMatch && (
+              <>
+                <span className="text-on-green">
+                  {home} — {away}
+                </span>
+                <span>{formatDate(nextMatch.kickoff, locale)}</span>
+              </>
+            )}
           </span>
           <div className="flex items-center gap-4 text-on-green-soft">
             {club.socials.map((s) => (

@@ -3,9 +3,9 @@
 import Image from "next/image";
 import type { Dictionary } from "@/i18n/get-dictionary";
 import type { Locale } from "@/i18n/config";
-import { results, fixtures } from "@/content/matches";
 import type { Match } from "@/content/types";
 import { crestFor } from "@/lib/crest";
+import { liveMatches } from "@/lib/matchStatus";
 import { useAutoScroll } from "@/hooks/useAutoScroll";
 import { formatDate, formatTime, cn, localeHref } from "@/lib/utils";
 import { ArrowLink } from "@/components/ui/ArrowLink";
@@ -15,7 +15,8 @@ const US = ["Лівий Берег", "Livyi Bereh"];
 /** Auto-scrolling results + fixtures strip that lives at the foot of the hero.
  *  Runs on its own, pauses on hover/focus, stays grab-scrollable. */
 export function MatchesTicker({ locale, dict }: { locale: Locale; dict: Dictionary }) {
-  const list: Match[] = [...results.slice().reverse(), ...fixtures];
+  const { results, fixtures } = liveMatches();
+  const list: Match[] = [...results, ...fixtures];
   const track = useAutoScroll<HTMLDivElement>();
 
   return (

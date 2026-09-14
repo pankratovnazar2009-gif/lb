@@ -3,7 +3,8 @@
  * Only our own selection is modelled (opponents' lineups aren't published
  * anywhere we source from). `startXI` is ordered GK → DF → MF → FW to match
  * the pitch diagram in MatchLineup. Goal totals below tie out exactly with
- * playerStats.ts (bondarenko 1, florencio 1, voloshynN 1, banada 1 = 4).
+ * playerStats.ts (bondarenko 1, banada 2, florencio 2, voloshynN 2,
+ * souzaDaSilva 1 = 8, matching the 8 goals LB scored across r1–r6).
  */
 export interface Goal {
   id: string;
@@ -63,6 +64,34 @@ export const lineups: Record<string, Lineup> = {
     ],
     subs: ["domoleha", "kotukha", "yakymiv", "vorobchak", "shastal", "kvasnytsia", "heresh"],
     goals: [{ id: "banada", minute: 45 }],
+  },
+  r5: {
+    formation: "4-3-3",
+    startXI: [
+      "ihnatenko",
+      "sokolov", "samar", "silva-santos", "kotukha",
+      "souza-da-silva", "kryvoruchko", "banada",
+      "florencio", "voloshyn-n", "fall",
+    ],
+    subs: ["domoleha", "osei-bonsu", "yakymiv", "vorobchak", "shastal", "kvasnytsia", "heresh"],
+    goals: [
+      { id: "souza-da-silva", minute: 55 },
+      { id: "florencio", minute: 82 },
+    ],
+  },
+  r6: {
+    formation: "4-3-3",
+    startXI: [
+      "ihnatenko",
+      "sokolov", "samar", "osei-bonsu", "yakymiv",
+      "kryvoruchko", "banada", "vorobchak",
+      "florencio", "voloshyn-n", "fall",
+    ],
+    subs: ["domoleha", "kotukha", "silva-santos", "souza-da-silva", "shastal", "tishchenko", "heresh"],
+    goals: [
+      { id: "banada", minute: 30 },
+      { id: "voloshyn-n", minute: 68 },
+    ],
   },
 };
 
