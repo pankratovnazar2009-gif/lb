@@ -11,13 +11,24 @@ export function Cursor() {
     if (!window.matchMedia("(pointer: fine)").matches) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const target = { x: innerWidth / 2, y: innerHeight / 2 };
-    const cur = { ...target };
+    const target = { x: 0, y: 0 };
+    const cur = { x: 0, y: 0 };
     let raf = 0;
 
+    // Both dot and ring start invisible (opacity: 0 in CSS) — until a real
+    // pointer position lands, they'd otherwise sit at their default CSS
+    // top:0/left:0 and paint as a stray circle in the page's corner.
+    let moved = false;
     const move = (e: PointerEvent) => {
       target.x = e.clientX;
       target.y = e.clientY;
+      if (!moved) {
+        moved = true;
+        cur.x = e.clientX;
+        cur.y = e.clientY;
+        dot.current?.classList.add("is-visible");
+        ring.current?.classList.add("is-visible");
+      }
       if (dot.current) {
         dot.current.style.left = `${e.clientX}px`;
         dot.current.style.top = `${e.clientY}px`;
@@ -28,11 +39,13 @@ export function Cursor() {
       ring.current?.classList.toggle("hot", hot);
     };
     const loop = () => {
-      cur.x += (target.x - cur.x) * 0.14;
-      cur.y += (target.y - cur.y) * 0.14;
-      if (ring.current) {
-        ring.current.style.left = `${cur.x}px`;
-        ring.current.style.top = `${cur.y}px`;
+      if (moved) {
+        cur.x += (target.x - cur.x) * 0.14;
+        cur.y += (target.y - cur.y) * 0.14;
+        if (ring.current) {
+          ring.current.style.left = `${cur.x}px`;
+          ring.current.style.top = `${cur.y}px`;
+        }
       }
       raf = requestAnimationFrame(loop);
     };
