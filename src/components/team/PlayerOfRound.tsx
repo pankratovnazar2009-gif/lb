@@ -81,7 +81,7 @@ export function PlayerOfRound({ locale, dict }: { locale: Locale; dict: Dictiona
                   alt={name}
                   fill
                   sizes="(max-width: 640px) 45vw, 20vw"
-                  className="tone-warm object-contain object-bottom mix-blend-darken"
+                  className="tone-warm object-cover object-top mix-blend-darken"
                 />
               </div>
               <div className="mt-3 border-t border-ink pt-2">

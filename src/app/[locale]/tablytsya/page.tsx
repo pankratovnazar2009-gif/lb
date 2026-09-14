@@ -2,9 +2,9 @@ import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { PageIntro } from "@/components/ui/PageIntro";
-import { MatchesFull } from "@/components/matches/MatchesFull";
+import { LeagueTableBlock } from "@/components/home/LeagueTableBlock";
 
-export default async function MatchesPage({
+export default async function TablePage({
   params,
 }: {
   params: Promise<{ locale: string }>;
@@ -16,8 +16,8 @@ export default async function MatchesPage({
 
   return (
     <>
-      <PageIntro locale={l} backHome={dict.nav.backHome} label={dict.matches.label} title={dict.matches.title} />
-      <MatchesFull locale={l} dict={dict} />
+      <PageIntro locale={l} backHome={dict.nav.backHome} label={dict.table.label} title={dict.table.title} />
+      <LeagueTableBlock locale={l} dict={dict} index="01" />
     </>
   );
 }

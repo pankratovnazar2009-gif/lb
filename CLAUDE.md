@@ -35,24 +35,35 @@ npm start          # прод-сервер
 ```
 src/
   app/[locale]/           layout (шрифти, хедер/футер, прелоадер) + page (головна),
-                          komanda (склад + форма + статистика + голосування), matchi, novyny
+                          komanda (склад + статистика + голосування + комплекти), matchi (розклад+результати),
+                          tablytsya (турнірна таблиця), novyny
   app/api/vote/           route.ts — голосування «гравець туру» (KV, див. нижче)
   components/
     layout/               SiteHeader, SiteFooter, SocialIcon, Crest, MobileMenu, SmoothScroll, Cursor, Preloader, LocaleSwitch, ReviewMode
     home/                 Hero (гравці-вирізки по боках + MatchesTicker знизу), LatestNews, SquadShowcase,
-                          LeagueTableBlock (реюзається і на /matchi), ClubHistory (+ PartnersList під гербом), PartnersList
-    matches/              MatchesFull — сітка результатів+розкладу на /matchi
-    team/                 SquadGrid, TeamForm, PlayerOfRound, StaffRow
-    ui/                   SectionHeader, MaskText, Reveal, ArrowLink, PageIntro
-  content/                players, staff, playerStats, news, matches, table, history, club, vote, types  ← весь контент тут
+                          LeagueTableBlock (зони ЛЧ/ЛЄ/пониження, реюзається і на /tablytsya), ClubHistory (+ PartnersList під гербом), PartnersList
+    matches/              MatchesFull — сітка результатів+розкладу на /matchi (фільтр дім/виїзд, розгортання «Склад на матч»), MatchLineup — пітч-діаграма стартового складу
+    team/                 SquadGrid, PlayerOfRound, StaffRow, KitShowcase (комплекти форми, SVG-ілюстрації)
+    ui/                   SectionHeader, MaskText, Reveal, ArrowLink, PageIntro (з посиланням «На головну»)
+  content/                players, staff, playerStats, news, matches, table, lineups, kits, history, club, vote, types  ← весь контент тут
   i18n/                   config, get-dictionary, dictionaries/
   hooks/                  useInViewOnce, useScrolled, useAutoScroll
   lib/                    utils (cn, formatDate/Time, localeHref, pluralUk), crest (crestFor: назва команди → /upl/<slug>.png)
 public/players|coaches|upl|brand   стиснуті фото/герби (студійні портрети на білому — виносяться на фон через mix-blend-darken)
 ```
 
-Хедер: «Матчі» веде на окрему сторінку `/matchi` (усі результати+розклад+таблиця), не на якір.
+Хедер: окремі пункти «Розклад матчів» (`/matchi`) і «Таблиця» (`/tablytsya`), не якорі.
 Партнери — не окрема секція, а блок під гербом клубу всередині «Клуб» (`ClubHistory` → `PartnersList`).
+Кожна внутрішня сторінка (`PageIntro`) має посилання «На головну» (`dict.nav.backHome`).
+
+### Розклад матчів і таблиця
+
+- `/matchi` → `MatchesFull` (клієнтський компонент): фільтр «Усі / Вдома / У гостях», картки результатів з бейджем В/Н/П, голами (⚽ ім'я хвилина) і розгортанням «Склад на матч» (пітч-діаграма 4-3-3 через `MatchLineup` + список запасних). Стартові склади — `src/content/lineups.ts`, узгоджені з голами гравців у `playerStats.ts`.
+- `/tablytsya` → `LeagueTableBlock`: кольорові маркери зон за зразком довідкового сайту УПЛ — 1 місце (Ліга чемпіонів), 2–3 (Ліга Європи/Конференцій, кваліфікація), 13–14 (перехідні матчі), 15–16 (пониження), плюс легенда під таблицею.
+
+### Комплекти форми
+
+`/uk/komanda` (внизу сторінки) → `KitShowcase`: домашній/виїзний/третій комплект, кожен — флет-ілюстрація SVG у брендових кольорах (`src/content/kits.ts`), бо фотографій продукції з fclb-shop.com у контенті поки немає. Посилання «У фан-шопі» веде на fclb-shop.com.
 
 ## Дизайн-константи
 

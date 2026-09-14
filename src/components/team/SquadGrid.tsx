@@ -65,7 +65,7 @@ function PlayerCard({ p, locale }: { p: Player; locale: Locale }) {
           alt={`${first} ${last}`}
           fill
           sizes="(max-width: 640px) 45vw, 20vw"
-          className="tone-warm z-[1] object-contain object-bottom mix-blend-darken transition-[filter,transform] duration-500 group-hover:scale-[1.03]"
+          className="tone-warm z-[1] object-cover object-top mix-blend-darken transition-[filter,transform] duration-500 group-hover:scale-[1.03]"
         />
       </div>
       <div className="mt-3 border-t border-ink pt-2">

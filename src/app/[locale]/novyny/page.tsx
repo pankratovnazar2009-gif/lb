@@ -22,7 +22,7 @@ export default async function NewsPage({
 
   return (
     <>
-      <PageIntro label={dict.news.label} title={dict.news.title} />
+      <PageIntro locale={l} backHome={dict.nav.backHome} label={dict.news.label} title={dict.news.title} />
 
       <div className="shell gutter section !pt-0">
         <ul className="border-t border-ink">

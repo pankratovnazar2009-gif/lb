@@ -2,10 +2,10 @@ import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { PageIntro } from "@/components/ui/PageIntro";
-import { TeamForm } from "@/components/team/TeamForm";
 import { SquadGrid } from "@/components/team/SquadGrid";
 import { PlayerOfRound } from "@/components/team/PlayerOfRound";
 import { StaffRow } from "@/components/team/StaffRow";
+import { KitShowcase } from "@/components/team/KitShowcase";
 
 export default async function TeamPage({
   params,
@@ -20,14 +20,16 @@ export default async function TeamPage({
   return (
     <>
       <PageIntro
+        locale={l}
+        backHome={dict.nav.backHome}
         label={`${dict.nav.team} · ${dict.squad.label}`}
         title={dict.squad.title}
         lead={dict.hero.tagline}
       />
-      <TeamForm locale={l} dict={dict} />
       <SquadGrid locale={l} dict={dict} />
       <PlayerOfRound locale={l} dict={dict} />
       <StaffRow locale={l} dict={dict} />
+      <KitShowcase locale={l} dict={dict} />
     </>
   );
 }

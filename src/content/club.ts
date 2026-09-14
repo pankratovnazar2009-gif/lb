@@ -49,11 +49,12 @@ export const club = {
   ] as Array<{ name: string; note: string; url?: string; logo?: string }>,
 } as const;
 
-export type NavKey = "news" | "team" | "matches" | "academy" | "club" | "media";
+export type NavKey = "news" | "team" | "matches" | "table" | "academy" | "club" | "media";
 
 export const navItems: Array<{ key: NavKey; href: string; external?: boolean }> = [
   { key: "news", href: "/novyny" },
   { key: "team", href: "/komanda" },
   { key: "matches", href: "/matchi" },
+  { key: "table", href: "/tablytsya" },
   { key: "club", href: "/#club" },
 ];

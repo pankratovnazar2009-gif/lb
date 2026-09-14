@@ -6,6 +6,17 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
 
+/** Zone colour for a table position, matching the UPL reference site:
+ *  1 → Champions League, 2–3 → Europa/Conference League qualification,
+ *  13–14 → promotion/relegation play-off, 15–16 → relegation. */
+function zoneColor(pos: number): string | null {
+  if (pos === 1) return "#3b6fd8";
+  if (pos <= 3) return "#8a3552";
+  if (pos <= 12) return null;
+  if (pos <= 14) return "#c9820f";
+  return "#c0392b";
+}
+
 export function LeagueTableBlock({
   locale,
   dict,
@@ -16,6 +27,12 @@ export function LeagueTableBlock({
   index?: string;
 }) {
   const c = dict.table.cols;
+  const legend = [
+    { color: "#3b6fd8", label: dict.table.zoneUcl },
+    { color: "#8a3552", label: dict.table.zoneUel },
+    { color: "#c9820f", label: dict.table.zonePlayoff },
+    { color: "#c0392b", label: dict.table.zoneRelegation },
+  ];
 
   return (
     <section id="table" className="section shell gutter">
@@ -36,6 +53,7 @@ export function LeagueTableBlock({
           <tbody className="font-mono text-sm">
             {leagueTable.map((row) => {
               const us = row.team === OUR_TEAM;
+              const zone = zoneColor(row.pos);
               return (
                 <tr
                   key={row.pos}
@@ -44,8 +62,15 @@ export function LeagueTableBlock({
                     us ? "bg-yellow/15" : "hover:bg-paper-2",
                   )}
                 >
-                  <td className={cn("py-3 tabular-nums", us && "border-l-2 border-green pl-2 font-semibold")}>
-                    {row.pos}
+                  <td className={cn("py-3 pl-2 tabular-nums", us && "font-semibold")}>
+                    <span className="inline-flex items-center gap-2">
+                      <span
+                        aria-hidden
+                        className="h-3 w-[3px] shrink-0"
+                        style={{ backgroundColor: us ? "var(--green)" : zone ?? "transparent" }}
+                      />
+                      {row.pos}
+                    </span>
                   </td>
                   <td className="py-2.5 pl-2">
                     <a
@@ -83,6 +108,15 @@ export function LeagueTableBlock({
             })}
           </tbody>
         </table>
+
+        <ul className="label mt-5 space-y-2 text-ink-soft">
+          {legend.map((l) => (
+            <li key={l.label} className="flex items-center gap-2.5">
+              <span aria-hidden className="h-3 w-[3px] shrink-0" style={{ backgroundColor: l.color }} />
+              {l.label}
+            </li>
+          ))}
+        </ul>
         <p className="label mt-4 text-ink-soft">{dict.table.season}</p>
       </Reveal>
     </section>
